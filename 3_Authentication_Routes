@@ -1,0 +1,15 @@
+Authentication-
+
+
+Protecting Routes (Authentication)
+To restrict access, create a Protected Route component.
+jsx
+CopyEdit
+const ProtectedRoute = ({ isAuthenticated, children }) => {
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
+
+// Usage
+<Routes>
+  <Route path="/dashboard" element={<ProtectedRoute isAuthenticated={user} ><Dashboard /></ProtectedRoute>} />
+</Routes>
