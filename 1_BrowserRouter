@@ -1,0 +1,69 @@
+React Routing-
+______________________________________
+
+React Router is a popular library for handling navigation and routing in React applications. It enables the creation of single-page applications (SPAs) by dynamically rendering components based on the URL without a full page reload.
+
+npm install react-router-dom
+
+Basic Routing-
+
+
+<BrowserRouter>: Enables routing using the browser's history API.
+<Routes>: A wrapper for defining multiple <Route> components.
+<Route>: Defines a route where path is the URL and element is the component to render.
+
+
+import React from "react"; 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
+
+const Home = () => <h1>Home Page</h1>;
+
+ const About = () => <h1>About Page</h1>;
+
+ const App = () => { 
+    return ( 
+<Router>
+ <Routes>
+ <Route path="/" element={<Home />} /> 
+<Route path="/about" element={<About />} /> 
+</Routes>
+ </Router> ); }; 
+export default App;
+
+
+__________
+
+
+Instead of <a> tags (which cause a full-page reload), React Router provides <Link> and <NavLink> for navigation.
+
+
+Link -
+
+import { Link } from "react-router-dom";
+ const Navbar = () => { 
+return ( 
+<nav>
+‘ <Link to="/">Home</Link>
+ <Link to="/about">About</Link> 
+</nav> ); };
+
+Difference between Link
+-
+
+
+<Link>: Used for navigation.
+<NavLink>: Works like <Link> but also applies an active class to the current route.
+
+For Navlink-
+
+
+<NavLink to="/about" activeClassName="active">About</NavLink>
+
+
+
+
+
+
+
+
+
