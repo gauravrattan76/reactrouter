@@ -1,0 +1,107 @@
+Dynamic routes-
+
+
+import { useParams } from "react-router-dom"; 
+const UserProfile = () => { 
+const { id } = useParams(); 
+return <h1>User Profile: {id}</h1>; };
+ // Define Route <Routes> <Route path="/user/:id" element={<UserProfile />} /> </Routes>
+
+
+useParams() extracts route parameters (e.g., /user/123 → id = 123).
+
+
+____________
+
+
+Code redirect —
+
+
+Redirect with <Navigate>
+If you need to redirect users, use <Navigate>.
+Example:
+jsx
+CopyEdit
+import { Navigate } from "react-router-dom";
+
+const ProtectedRoute = ({ isAuthenticated }) => {
+  return isAuthenticated ? <Dashboard /> : <Navigate to="/login" />;
+};
+Explanation:
+* If isAuthenticated is false, the user is redirected to /login.
+
+
+________________________________
+
+
+To navigate programmatically (e.g., after form submission), use useNavigate().
+Example:
+jsx
+CopyEdit
+import { useNavigate } from "react-router-dom";
+
+const Login = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    // Perform authentication logic...
+    navigate("/dashboard");
+  };
+
+  return <button onClick={handleLogin}>Login</button>;
+};
+
+
+__________
+
+
+. Handling 404 (Not Found) Pages
+Define a wildcard route using "*".
+jsx
+CopyEdit
+const NotFound = () => <h1>404 - Page Not Found</h1>;
+
+<Routes>
+  <Route path="*" element={<NotFound />} />
+</Routes>
+_____________________
+
+
+
+Protecting Routes (Authentication)
+To restrict access, create a Protected Route component.
+jsx
+CopyEdit
+const ProtectedRoute = ({ isAuthenticated, children }) => {
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
+
+// Usage
+<Routes>
+  <Route path="/dashboard" element={<ProtectedRoute isAuthenticated={user} ><Dashboard /></ProtectedRoute>} />
+</Routes>
+
+
+
+_____________
+
+
+. BrowserRouter vs. HashRouter
+* BrowserRouter: Uses the history API (example.com/about).
+* HashRouter: Uses a hash (example.com/#/about) and works without server configuration.
+
+
+_________
+
+
+Feature	Description
+<BrowserRouter>	Main router wrapper (uses history API).
+<Routes>	Groups multiple <Route> elements.
+<Route>	Defines a path and its corresponding component.
+<Link> / <NavLink>	For navigation (without full reload).
+useParams()	Retrieves dynamic parameters from the URL.
+useNavigate()	Enables programmatic navigation.
+<Navigate>	Redirects users.
+<Outlet>	Allows nested routing.
+path="*"	Catches all unmatched routes (404 page).
+
